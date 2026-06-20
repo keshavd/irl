@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Jenny Adventure</title>
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --card: #ffffff;
+      --text: #000000;
+      --muted: #333333;
+      --border: #000000;
+      --shadow: rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .card {
+      width: min(100%, 560px);
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: 0;
+      padding: 28px;
+      box-shadow: 0 24px 70px var(--shadow);
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      font-size: clamp(1.9rem, 6vw, 2.6rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.55;
+    }
+
+    .buttons {
+      display: grid;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    button,
+    .fake-link {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 0;
+      padding: 14px 18px;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.12s ease, opacity 0.12s ease;
+      background: white;
+      color: var(--text);
+    }
+
+    button:hover,
+    .fake-link:hover {
+      transform: translateY(-2px);
+      opacity: 0.92;
+    }
+
+    .pink,
+    .purple,
+    .green,
+    .soft {
+      background: white;
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .escape {
+      margin-top: 20px;
+      display: inline-block;
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.95rem;
+      cursor: pointer;
+      font-weight: 700;
+      padding: 12px 18px;
+      border-radius: 0;
+    }
+
+    .quest-box {
+      text-align: left;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 0;
+      padding: 18px;
+      margin-top: 20px;
+      color: var(--text);
+    }
+
+    .quest-box ul {
+      margin: 10px 0 0;
+      padding-left: 22px;
+      line-height: 1.55;
+    }
+
+    .calendar {
+      display: grid;
+      gap: 12px;
+      margin-top: 22px;
+      text-align: left;
+    }
+
+    label {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      margin-top: 6px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 0;
+      font: inherit;
+      background: white;
+      color: var(--text);
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .tiny {
+      margin-top: 16px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+
+<body>
+  <main class="card">
+    <h1 id="title">wowowow jennnny</h1>
+
+    <p id="text">
+      you actually opened the website?!?
+      <br><br>
+      whatchu wanna do?
+    </p>
+
+    <div class="buttons" id="buttons">
+      <button class="pink" onclick="coffee()">a. cofefe</button>
+      <button class="purple" onclick="drinks()">b. draaanks</button>
+      <button class="green" onclick="sideQuest()">c. side quest?</button>
+    </div>
+
+    <button class="escape" id="escape" onclick="rejectOptions()">
+      these options were bad. you’ll pick.
+    </button>
+  </main>
+
+  <script>
+    const wowowowow = "+14162012768"; 
+    const unavailableDates = [
+
+      "2026-06-22",
+
+      "2026-06-25",
+
+      "2026-06-28"
+
+    ];
+    let selectedQuest = "";
+
+    const title = document.getElementById("title");
+    const text = document.getElementById("text");
+    const buttons = document.getElementById("buttons");
+    const escape = document.getElementById("escape");
+
+    function setScreen(newTitle, newText, newButtons, showEscape = true) {
+      title.innerHTML = newTitle;
+      text.innerHTML = newText;
+      buttons.innerHTML = newButtons;
+      escape.style.display = showEscape ? "inline-block" : "none";
+      requestAnimationFrame(attachDateBlocker);
+    }
+
+    function coffee() {
+      setScreen(
+        "omg cofefe?",
+        `
+          so refined. so sober.
+          <br><br>
+          what type of coffee?
+        `,
+        `
+          <button class="pink" onclick="finalQuest('Starbucks because we are pleasantly basic')">
+            a. Starbucks bc we're pleasantly basic
+          </button>
+
+          <button class="purple" onclick="thirdWaveCoffee()">
+            b. eeeee yuk not Starbucks. third wave coffee bc we live in Toronto
+          </button>
+        `
+      );
+    }
+
+    function thirdWaveCoffee() {
+      setScreen(
+        "third wave coffee arc",
+        `
+          excellent. pretentious in a socially acceptable way.
+          <br><br>
+          choose the coffee destination:
+        `,
+        `
+          <button class="pink" onclick="finalQuest('Grain Nation coffee')">
+            Grain Nation
+          </button>
+
+          <button class="purple" onclick="finalQuest('Pilot Coffee')">
+            Pilot Coffee
+          </button>
+
+          <button class="green" onclick="finalQuest('Daytime Dupont')">
+            Daytime Dupont
+          </button>
+        `
+      );
+    }
+
+    function drinks() {
+      setScreen(
+        "draaanks???",
+        `
+          millennial alcoholism. I like it.
+          <br><br>
+          choose refinement:
+        `,
+        `
+          <button class="pink" onclick="happyHour()">
+            a. happy hour bc it's recession
+          </button>
+
+          <button class="purple" onclick="cocktails()">
+            b. refined cocktails bc life is too short for bar rails
+          </button>
+        `
+      );
+    }
+
+    function happyHour() {
+      setScreen(
+        "happy hour arc",
+        `
+          oh thank god. i am self-employed.
+          <br><br>
+          choose the happiness destination:
+        `,
+        `
+          <button class="pink" onclick="finalQuest('Fox on John happy hour')">
+            Fox on John
+          </button>
+
+          <button class="purple" onclick="finalQuest('Happy hour somewhere cute')">
+            surprise me, recession man
+          </button>
+
+          <button class="green" onclick="finalQuest('Black and Blue happy hour')">
+            Black and Blue happy hour
+          </button>
+        `
+      );
+    }
+
+    function cocktails() {
+      setScreen(
+        "refined cocktail arc",
+        `
+          because life is too short for bar rails. also we are too old for bar rails.
+          <br><br>
+          choose the cocktail bar:
+        `,
+        `
+          <button class="pink" onclick="finalQuest('After Seven cocktails')">
+            After Seven
+          </button>
+
+          <button class="purple" onclick="finalQuest('Melrose on Adelaide cocktails')">
+            Melrose on Adelaide
+          </button>
+
+          <button class="green" onclick="finalQuest('Bar Pompette cocktails')">
+            Bar Pompette
+          </button>
+        `
+      );
+    }
+
+    function sideQuest() {
+      setScreen(
+        "omg side quest???",
+        `
+          choose your adventure:
+        `,
+        `
+          <button class="pink" onclick="finalQuest('Friday at MOCA')">
+            a. indoor activity because the sun is fading my tattoos
+          </button>
+
+          <button class="purple" onclick="finalQuest('Chinatown grocery shopping + bubble tea')">
+            b. mystery boring side quest
+          </button>
+
+          <button class="green" onclick="finalQuest('Watercolour painting at the dog park')">
+            c. artsy side quest
+          </button>
+        `
+      );
+    }
+
+    function rejectOptions() {
+      selectedQuest = "Jenny rejects the algorithm and picks the superior plan";
+
+      setScreen(
+        "wow okay.",
+        `
+          honestly we should just cancel. I'm not sure why I even offered these options. they were pretty bad.
+          <br><br>
+          you are now the activities director.
+          <br><br>
+          pick a time and tell me your infinitely better plan.
+        `,
+        calendarForm("submit better idea"),
+        false
+      );
+    }
+
+    function finalQuest(quest) {
+      selectedQuest = quest;
+
+      let description = getQuestDescription(quest);
+
+      setScreen(
+        "WOWOWOW Plan made?! Cant wait!!!",
+        `
+          <strong>${quest}</strong>
+          <br><br>
+          ${description}
+        `,
+        calendarForm("tell keshav to clear his calendar"),
+        false
+      );
+    }
+
+    function getQuestDescription(quest) {
+      const descriptions = {
+        "Starbucks because we are pleasantly basic": `
+          dont judge me if i get a pink drink. Coconut milk is delicious.
+        `,
+
+        "Grain Nation coffee": `
+          photography and coffee! can life get any better?
+        `,
+
+        "Pilot Coffee": `
+          coffee, yapping, and maybe a walk if the vibes demand it.
+        `,
+
+        "Daytime Dupont": `
+          cute café energy. potentially dangerous levels of taste.
+        `,
+
+        "Fox on John happy hour": `
+          They have dj to make the people dance in their seats. I will be the one dancing.
+        `,
+
+        "Happy hour somewhere cute": `
+          I will locate beverages with acceptable ambiance and recession-friendly pricing.
+        `,
+        "Black and Blue happy hour": `
+          classy happy hour. I am vegan but I will endure the steakhouse vibes for the sake of the cocktails.
+        `,
+
+        "After Seven cocktails": `
+          my favourite selection of japanese whiskys and yuzu cocktails. very refined. very delicious.
+        `,
+
+        "Melrose on Adelaide cocktails": `
+          such great bartenders. and vegan charcuterie! you will love.
+        `,
+
+        "Bar Pompette cocktails": `
+          honestly have not been but apparently everyone else in the city has.
+        `,
+
+        "Friday at MOCA": `
+          indoor activity because the sun is fading our tattoos.
+          <br><br>
+          Prepare to interpret art and make up pretentious theories.
+        `,
+
+        "Chinatown grocery shopping + bubble tea": `
+          <div class="quest-box">
+            <strong>✨ Chinatown Grocery + Bubble Tea Side Quest ✨</strong>
+            <ul>
+              <li>Acquire bubble tea</li>
+              <li>Pick produce with suspicious confidence</li>
+              <li>You tell me about your vacation</li>
+              <li>I judge respectfully</li>
+              <li>Maybe get food if the vibes demand it</li>
+            </ul>
+          </div>
+        `,
+
+        "Watercolour painting at the dog park": `
+          low stakes. high aesthetic.
+          <br><br>
+          mild risk of becoming insufferable.
+        `
+      };
+
+      return descriptions[quest] || "a mysterious activity has been selected.";
+    }
+
+
+  function attachDateBlocker() {
+
+      const dateInput = document.getElementById("dateInput");
+
+      const dateWarning = document.getElementById("dateWarning");
+
+      if (!dateInput || !dateWarning) return;
+
+      dateInput.addEventListener("change", () => {
+
+        if (unavailableDates.includes(dateInput.value)) {
+
+          dateWarning.style.display = "block";
+
+          dateInput.value = "";
+
+        } else {
+
+          dateWarning.style.display = "none";
+
+        }
+
+      });
+
+    }
+
+    function calendarForm(buttonText) {
+      return `
+        <div class="calendar">
+          <label>
+            pick a day
+            <p id="dateWarning" class="tiny" style="display:none;color:red;">
+              🚨 so sad. i am unavailable this day. pls choose another. dont make me bump off my friends.
+            </p>
+            <input id="dateInput" type="date" />
+          </label>
+
+          <label>
+            pick a time
+            <select id="timeInput">
+              <option value="morning">morning</option>
+              <option value="afternoon">afternoon</option>
+              <option value="evening">evening</option>
+            </select>
+          </label>
+
+          <label>
+            notes from jennnny
+            <textarea id="notesInput" placeholder="e.g. I want bubble tea but i hate grocery shopping"></textarea>
+          </label>
+
+          <button class="pink" onclick="sendQuest()">
+            ${buttonText}
+          </button>
+
+          <button class="soft" onclick="location.reload()">
+            restart the adventure
+          </button>
+        </div>
+
+        <p class="tiny">
+          if this breaks, I will pay for your wasted time. in IOUs.
+        </p>
+      `;
+    }
+
+    function sendQuest() {
+      const date = document.getElementById("dateInput")?.value || "not specified";
+      const time = document.getElementById("timeInput")?.value || "not specified";
+      const notes = document.getElementById("notesInput")?.value || "none";
+
+      const message = `
+Adventure Request:
+
+Quest: ${selectedQuest}
+Date: ${date}
+Time: ${time}
+Notes: ${notes}
+      `.trim();
+
+      window.location.href = `sms:${wowowowow}&body=${encodeURIComponent(message)}`;
+    }
+  </script>
+</body>
+</html>
