@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>Jenny Adventure</title>
+  <title>Coffee, Drinks, or Side Quest</title>
 
   <style>
     :root {
@@ -162,7 +162,7 @@
 
 <body>
   <main class="card">
-    <h1 id="title">wowowow jennnny</h1>
+    <h1 id="title">wowowow</h1>
 
     <p id="text">
       you actually opened the website?!?
@@ -345,14 +345,13 @@
     }
 
     function rejectOptions() {
-      selectedQuest = "Jenny rejects the algorithm and picks the superior plan";
+      selectedQuest = "You hated the plans so much that you decided to plan the day yourself";
 
       setScreen(
         "wow okay.",
         `
-          honestly we should just cancel. I'm not sure why I even offered these options. they were pretty bad.
-          <br><br>
-          you are now the activities director.
+          honestly we should just cancel. 
+          <br><br>I'm not sure why I even offered these options. they were pretty bad.
           <br><br>
           pick a time and tell me your infinitely better plan.
         `,
@@ -367,7 +366,7 @@
       let description = getQuestDescription(quest);
 
       setScreen(
-        "WOWOWOW Plan made?! Cant wait!!!",
+        "WOWOWOW Plan made?! Cannot wait!",
         `
           <strong>${quest}</strong>
           <br><br>
@@ -493,7 +492,7 @@
           </label>
 
           <label>
-            notes from jennnny
+            notes (optional)
             <textarea id="notesInput" placeholder="e.g. I want bubble tea but i hate grocery shopping"></textarea>
           </label>
 
@@ -518,7 +517,7 @@
       const notes = document.getElementById("notesInput")?.value || "none";
 
       const message = `
-Jenny Adventure Request:
+Adventure Request:
 
 Quest: ${selectedQuest}
 Date: ${date}
